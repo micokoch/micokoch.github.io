@@ -32,6 +32,7 @@ h3 {
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 p {
+    font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
     font-size: 1.5em;
     line-height: 1.4em;
     color: #333;
@@ -41,13 +42,23 @@ footer {
     font-size: .8em;
 }
 
+ul {
+    font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
+}
+
+ul li {
+    font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
+}
+
 ul.posts { 
     margin: 20px auto 40px; 
     font-size: 1.5em;
+    font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 
 ul.posts li {
     list-style: none;
+    font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 
 figure {
