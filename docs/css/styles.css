@@ -23,6 +23,14 @@ h1 {
     font-size: 3em;
     font-family:'Helvetica', 'Arial', 'Sans-Serif';
 }
+h2 {
+    font-size: 2em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
+h3 {
+    font-size: 1em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+}
 p {
     font-size: 1.5em;
     line-height: 1.4em;
@@ -42,6 +50,21 @@ ul.posts li {
     list-style: none;
 }
 
+/*figure {
+  border: 1px #cccccc solid;
+  padding: 4px;
+  margin: auto;
+}*/
+
+figcaption {
+  background-color: white;
+  color: black;
+  /*font-style: italic;*/
+  font-size: 1.5em;
+  padding: 2px;
+  text-align: left;
+}
+
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
@@ -51,7 +74,7 @@ blockquote {
 }
 blockquote:before {
   color: #ccc;
-  content: open-quote;
+  content: "\201C";
   font-size: 4em;
   line-height: 0.1em;
   margin-right: 0.25em;
@@ -59,5 +82,13 @@ blockquote:before {
 }
 blockquote p {
   display: inline;
+}
+blockquote:after {
+  color: #ccc;
+  content: "\201D";
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-left: 0.1em;
+  vertical-align: -0.4em;
 }
 
