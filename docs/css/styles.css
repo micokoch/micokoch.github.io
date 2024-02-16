@@ -5,6 +5,7 @@ body {
     background-color: rgba(237, 234, 222, 0.3);
 }
 nav ul, footer ul {
+    position: fixed;
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
     padding: 0px;
     list-style: none;
