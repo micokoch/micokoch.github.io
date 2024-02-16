@@ -14,13 +14,15 @@ nav ul, footer ul {
     font-weight: bold;
     background-color:rgb(195, 224, 227);
     border-left: 10px solid #ccc;
+    /*add left space*/
+    margin-left: 20px;
     
 
 }
 nav ul li, footer ul li {
     display: inline;
     margin-right: 10px;
-    margin-left: 10px;
+    margin-left: 20px;
     width: 100%;
 }
 a {
