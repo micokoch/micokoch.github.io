@@ -14,7 +14,6 @@ nav ul, footer ul {
     font-weight: bold;
     background-color:rgb(195, 224, 227);
     border-left: 10px solid #ccc;
-    /*add left space*/
     margin-left: 20px;
     
 
@@ -28,9 +27,11 @@ nav ul li, footer ul li {
 a {
     text-decoration: none;
     color: #660000;
+    padding: 5px;
 }
 .active {
     background-color: #ccc;
+    /*extend background color 5 px top and bottom*/
 }
 a:hover {
     text-decoration: underline;
