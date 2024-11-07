@@ -13,11 +13,25 @@
 <body>
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>
+      <li><a class="active" href="/">Home</a></li>
       <!--<li><a href="/micokoch">About</a></li>-->
-      <li><a href="/about/about.html">About</a></li>
-      <li><a href="/blog/blog.html">Blog</a></li>
-      <li><a class="active" href="/quotes/quotes.html">Quotes</a></li>
+      <!--<li><a href="/about/about.html">About</a></li>-->
+      <li class="dropdown">
+       <a href="javascript:void(0)" class="dropbtn">me</a>
+       <div class="dropdown-content">
+         <a href="/me/about.html">About</a>
+         <a href="/me/quotes.html">Quotes</a>
+       </div>
+     </li>
+      <li class="dropdown">
+       <a href="javascript:void(0)" class="dropbtn">Projects</a>
+       <div class="dropdown-content">
+         <a href="/projects/blog.html">Blog</a>
+         <a href="/reading_notes/personal.html">Dispossessed</a>
+         <a href="/projects/ofelnaimshev.html">ofelnaimshev</a>
+         <a href="/projects/ofenamshev.html">ofenamshev</a>
+       </div>
+     </li>
       <li><a href="https://github.com/micokoch">GitHub</a></li>
     </ul>
   </nav>
