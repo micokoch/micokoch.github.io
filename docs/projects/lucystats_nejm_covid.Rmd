@@ -1,0 +1,113 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+---
+<body style="background-color: rgba(66, 226, 245, 0.3);">
+
+Preliminaries
+```{r}
+library(tidyverse)
+library(survival)
+library(survminer)
+library(cmprsk)
+d <- read_csv("https://raw.githubusercontent.com/LucyMcGowan/nejm-grein-reanalysis/master/data/data-fig-2.csv")
+```
+Step 1
+```{r}
+long_dat <- d %>%
+  pivot_longer(day_1:day_36)
+
+cats <- tibble(
+  value = 1:6,
+  cat = factor(c("Ambient air", "Low-flow oxygen", "High-flow oxygen", "NIPPV", 
+                 "Mechanical ventilation", "ECMO"),
+               levels = c("ECMO", "Mechanical ventilation", "NIPPV", 
+                          "High-flow oxygen", "Low-flow oxygen", "Ambient air"))
+)
+long_dat %>%
+  left_join(cats, by = "value") %>%
+  filter(!is.na(value)) %>%
+  mutate(day_oxy = as.numeric(gsub("day_", "", name)) - 1,
+         day_oxy = ifelse(day_oxy > 28, 28, day_oxy),
+         day = ifelse(day > 28, 28, day),
+         patient = factor(patient, levels = 53:1),
+         event = ifelse(event == "censor", NA, event)
+  ) %>%
+  ggplot(aes(x = patient, y = day_oxy, fill = cat)) +
+  geom_segment(aes(x = patient, xend = patient,
+                   y = 0, yend = day - 0.5), lty = 3) +
+  geom_tile(width = 0.5) + 
+  scale_fill_manual("Oxygen support",
+                    values = c("#7D3A2C", "#AA3B2F", "#D36446", "#DEA568", 
+                               "#F5D280", "#FCEEBC")) +
+  geom_point(aes(x = patient, y = day - 0.5, shape = event)) +
+  scale_shape_manual("Event", values = c(15, 5),
+                     labels = c("Death", "Discharge", "")) +
+  guides(fill = guide_legend(override.aes = list(shape = NA), order = 1)) +
+  coord_flip() +
+  labs(y = "day", x = "") +
+  theme_classic()
+```
+Step 2
+```{r}
+fig_3 <- tibble(
+  time = c(4, 6, 6, 7, 7, 7, 7, 7, 7, 7, 8, 8, 9,
+           10, 10, 10, 11, 11, 11, 11, 12, 12, 13,
+           13, 13, 13, 14, 14, 15, 15, 16, 16, 16, 
+           16, 16, 17, 17, 17, 18, 18, 20, 22, 22, 
+           23, 23, 23, 25, 26, 27, 28, 28, 29, 33),
+  event = c(1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0,
+            1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 
+            1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 
+            0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
+            0)
+)
+```
+Step 3
+```{r}
+s <- survfit(Surv(time = time, event = event) ~ 1, data = fig_3)
+
+ggsurvplot(s, fun = "event", break.time.by = 4, ggtheme = theme_bw())
+1-s$surv[s$time == 28]
+```
+Step 4
+```{r}
+fig_3_fixed <- tibble(
+  time = c(4, 6, 6, 7, 7, 7, 7, 7, 7, 7, 8, 8, 9,
+           10, 10, 10, 11, 11, 11, 11, 12, 12, 13,
+           13, 13, 13, 14, 14, 15, 15, 16, 16, 16, 
+           16, 16, 17, 17, 17, 18, 18, 20, 22, 22, 
+           23, 23, 23, 25, 26, 27, 28, 28, 29, 33),
+  event = c(1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 1, 1, 2,
+            1, 1, 0, 1, 1, 2, 0, 1, 1, 1, 1, 1, 0, 
+            1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 
+            2, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
+            0)
+)
+```
+Step 5
+```{r}
+x <- cuminc(fig_3_fixed$time, fig_3_fixed$event, cencode = 0)
+ggcompetingrisks(x, conf.int = TRUE,
+                 gnames = c("Improvement Improvement", "Death Death"))
+x$`1 1`$est[x$`1 1`$time == 28][2]
+```
+
+
+__________________
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
