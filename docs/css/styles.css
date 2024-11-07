@@ -42,6 +42,7 @@ nav ul li a:hover, .dropdown:hover .dropbtn {
 /* Dropdown container */
 .dropdown {
   display: inline-block;
+  position: relative;
 }
 
 /* Dropdown content (hidden by default) */
