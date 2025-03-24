@@ -91,12 +91,16 @@ h1 {
     font-family:'Georgia', 'Didot', "Arial Narrow", 'Sans-Serif', 'Helvetica', 'Arial';
 }
 h2 {
-    font-size: 2em;
+    font-size: 2.5em;
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 h3 {
-    font-size: 1em;
+    font-size: 2em;
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
+}
+h4 {
+  font-size: 1.8em;
+  font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 p {
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
@@ -198,7 +202,8 @@ blockquote:after {
   padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   height: 0;
   overflow: hidden;
-  max-width: 100%;
+  max-width: 100vw;
+  width: 100%;
 }
 
 .video-container iframe,
