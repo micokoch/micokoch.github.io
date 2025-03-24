@@ -152,6 +152,13 @@ figure {
   width: 100%;
 }
 .small-image img {
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 400px; /* Increase max size */
+  max-height: 300px; /* Optional: limit height if necessary */
+  display: block; /* Remove inline spacing */
+}
+.small-image img {
   height: 60%; /* Adjust percentage as needed */
   max-height: 300px; /* Set a reasonable max size */
 }
