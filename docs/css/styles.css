@@ -222,11 +222,11 @@ blockquote:after {
 
 .video-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  width: 75%; /* Reduce width to 75% */
+  max-width: 100vw; /* Optional: Set a reasonable max width */
+  padding-bottom: 42.1875%; /* Maintain 16:9 aspect ratio at 75% width */
   height: 0;
   overflow: hidden;
-  max-width: 100vw;
-  width: 80%;
 }
 
 .video-container iframe,
@@ -237,3 +237,4 @@ blockquote:after {
   width: 100%;
   height: 100%;
 }
+
