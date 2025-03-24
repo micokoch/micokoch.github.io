@@ -133,6 +133,10 @@ ul.posts li {
     font-family:'Arial Narrow', 'Sans-Serif', 'Georgia', 'Didot', 'Helvetica', 'Arial';
 }
 
+.clear {
+  clear: both;
+}
+
 figure {
   float: right;
   width: 30%;
@@ -146,6 +150,18 @@ figure {
 }
 .scaled {
   width: 100%;
+}
+.small-image img {
+  height: 60%; /* Adjust percentage as needed */
+  max-height: 300px; /* Set a reasonable max size */
+}
+.wide-image {
+  width: 60% !important; /* Increase figure width */
+  max-width: 600px; /* Adjust as needed */
+}
+.wide-image img {
+  width: 90%; /* Make it wider */
+  max-width: 600px; /* Adjust based on preference */
 }
 .quote {
   float: none;
@@ -203,7 +219,7 @@ blockquote:after {
   height: 0;
   overflow: hidden;
   max-width: 100vw;
-  width: 100%;
+  width: 80%;
 }
 
 .video-container iframe,
