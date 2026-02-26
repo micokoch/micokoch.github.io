@@ -1,0 +1,257 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2868
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fnil\fcharset0 HelveticaNeue-Bold;\f2\fnil\fcharset0 HelveticaNeue;
+\f3\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cspthree\c0\c0\c0\c85000;\cspthree\c0\c0\c0\c53000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid301\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid4}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 Dia publication script\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs28 \cf2 Can you help me write an R script that will list my publications in order, from newest to oldest, by pulling from a yml file that lists all publications in the following format:\
+```\
+title: 'Paper Title'\
+  slug: shortname\
+  authors: Castro Rivadeneira AJ, Volberg RA, Reich NG\
+  url: https://arxiv.org/\
+  year: 2025\
+  volume: 37\
+  number: 4\
+  pages: 1614\
+  journal: 'Epidemiologist'\
+  abstract: >\
+    Here goes the full abstract.\
+\
+title: 'Next Paper'\
+```\
+And then, formats it into an html file called `publications.html` that resembles the format of the attached file (`quotes.html`), where each publication is listed as follows - on the left a small image pulled from a separate file called `shortname.jpg` (there will be a separate image for each publication), and next to the image, information from the publication, similar to what is done here: {\field{\*\fldinst{HYPERLINK "https://reichlab.io/publications"}}{\fldrslt 
+\f0\fs24 \cf0 Reichlab.io}} \
+\{large and underlined\} Paper Title \{hyperlinked to article url\}\
+Authors (Year). \{italicized\} Publication. Volume(Number): Pages.\
+Abstract\
+
+\f2\b0 \'97\'97\'97\'97\'97\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs30 \cf2 Here\'92s a complete R script that reads your publications from a YAML file, sorts them from newest to oldest, and generates an HTML file (
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 publications.htm\kerning1\expnd16\expndtw80
+l\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2 ) in the style you described. It uses the 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 yam\kerning1\expnd16\expndtw80
+l\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  and 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 glu\kerning1\expnd16\expndtw80
+e\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  packages for parsing and formatting, and assumes your images are named 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 \{slug\}.jp\kerning1\expnd16\expndtw80
+g\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  and are in an 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 images\kerning1\expnd16\expndtw80
+/\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  directory relative to the HTML file.
+\f3\fs24 \cf0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b\fs30 \cf2 Instructions:
+\f3\b0\fs24 \cf0 \
+\pard\tqr\tx340\tx500\li500\fi-500\pardirnatural\partightenfactor0
+\ls1\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Save your publications in a file called 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 publications.ym\kerning1\expnd16\expndtw80
+l\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  (YAML format as you described).
+\f3\fs24 \cf0 \
+\ls1\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Place all publication images in an 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 images\kerning1\expnd16\expndtw80
+/\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  folder, named as 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 \{slug\}.jp\kerning1\expnd16\expndtw80
+g\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2 .
+\f3\fs24 \cf0 \
+\ls1\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Run the script below in R. It will create 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 publications.htm\kerning1\expnd16\expndtw80
+l\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  in your working directory.\
+\pard\tx720\pardirnatural\partightenfactor0
+
+\f3\fs24 \cf0 \
+\
+\pard\tqr\tx340\tx500\li500\fi-500\pardirnatural\partightenfactor0
+\cf0 ```r\
+\
+\pard\tqr\tx340\tx500\li500\fi-500\pardirnatural\partightenfactor0
+\ls2\ilvl0\cf0 {\listtext	\uc0\u8226 	}# publications.R\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+# Required packages\
+library(yaml)\
+library(glue)\
+\
+# Read publications from YAML file\
+pubs <- yaml.load_file("publications.yml")\
+\
+# Helper: flatten YAML list if needed\
+if (is.list(pubs) && !is.null(names(pubs))) \{\
+  # If pubs is a named list, convert to list of publications\
+  pubs <- lapply(names(pubs), function(n) \{\
+    pub <- pubs[[n]]\
+    pub$title <- n\
+    pub\
+  \})\
+\}\
+\
+# If pubs is a list of publications, ensure each is a list\
+pubs <- Filter(function(x) is.list(x) && !is.null(x$title), pubs)\
+\
+# Sort publications by year (descending)\
+pubs <- pubs[order(sapply(pubs, function(x) as.integer(x$year)), decreasing = TRUE)]\
+\
+# HTML header (adapted from your quotes.html)\
+html_header <- '\
+<!DOCTYPE html>\
+<html>\
+<head>\
+  <title>Publications - \'c1lvaro J. Castro Rivadeneira</title>\
+  <link rel="shortcut icon" href="images/favicon.ico">\
+  <link rel="stylesheet" href="css/styles.css">\
+  <meta property="og:title" content="Publications - \'c1lvaro J. Castro Rivadeneira">\
+  <meta property="og:description" content="Research publications">\
+  <meta property="og:image" content="images/cotopaxi.jpg">\
+  <meta property="og:url" content="https://micokoch.github.io/me/publications.html">\
+  <meta property="og:type" content="website">\
+  <style>\
+    .publist \{ max-width: 900px; margin: auto; \}\
+    .publication \{ display: flex; align-items: flex-start; margin-bottom: 2em; \}\
+    .pubimg \{ width: 120px; height: 120px; object-fit: cover; margin-right: 2em; border-radius: 8px; border: 1px solid #ccc; \}\
+    .pubinfo \{ flex: 1; \}\
+    .pubtitle \{ font-size: 1.5em; font-weight: bold; text-decoration: underline; margin-bottom: 0.2em; \}\
+    .pubmeta \{ font-size: 1em; margin-bottom: 0.5em; \}\
+    .pubabstract \{ font-size: 1em; color: #333; \}\
+    @media (max-width: 600px) \{\
+      .publication \{ flex-direction: column; align-items: stretch; \}\
+      .pubimg \{ margin-bottom: 1em; margin-right: 0; width: 100%; height: auto; \}\
+    \}\
+  </style>\
+</head>\
+<body>\
+  <nav>\
+    <ul>\
+      <li><a href="/">Home</a></li>\
+      <li class="dropdown">\
+        <a href="javascript:void(0)" class="dropbtn">me</a>\
+        <div class="dropdown-content">\
+          <a href="/me/about.html">about</a>\
+          <a href="/me/quotes.html">quotes</a>\
+          <a href="/me/blog.html">blog</a>\
+        </div>\
+      </li>\
+      <li><a href="https://github.com/micokoch">GitHub</a></li>\
+    </ul>\
+  </nav>\
+  <div class="container publist">\
+    <h1>Publications</h1>\
+'\
+\
+html_footer <- '\
+  </div>\
+</body>\
+</html>\
+'\
+\
+# Function to format one publication as HTML\
+pub_to_html <- function(pub) \{\
+  img_path <- glue("images/\{pub$slug\}.jpg")\
+  title_html <- glue('<a class="pubtitle" href="\{pub$url\}" target="_blank">\{pub$title\}</a>')\
+  meta_html <- glue('\{pub$authors\} (\{pub$year\}). <i>\{pub$journal\}</i>\{if (!is.null(pub$volume)) glue(", \{pub$volume\}") else ""\}\{if (!is.null(pub$number)) glue("(\{pub$number\})") else ""\}\{if (!is.null(pub$pages)) glue(": \{pub$pages\}") else ""\}.')\
+  abstract_html <- glue('<div class="pubabstract">\{pub$abstract\}</div>')\
+  glue('\
+    <div class="publication">\
+      <img class="pubimg" src="\{img_path\}" alt="\{pub$title\}">\
+      <div class="pubinfo">\
+        \{title_html\}\
+        <div class="pubmeta">\{meta_html\}</div>\
+        \{abstract_html\}\
+      </div>\
+    </div>\
+  ')\
+\}\
+\
+# Build HTML for all publications\
+pubs_html <- paste(lapply(pubs, pub_to_html), collapse = "\\n")\
+\
+# Write to file\
+writeLines(paste0(html_header, pubs_html, html_footer), "publications.html")\
+```\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b\fs30 \cf2 How it works:
+\f3\b0\fs24 \cf0 \
+\pard\tqr\tx340\tx500\li500\fi-500\pardirnatural\partightenfactor0
+\ls3\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Reads your YAML file.
+\f3\fs24 \cf0 \
+\ls3\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Sorts publications by year (descending).
+\f3\fs24 \cf0 \
+\ls3\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}For each publication, creates a block with image, title (hyperlinked), authors, journal info, and abstract.
+\f3\fs24 \cf0 \
+\ls3\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Outputs a styled HTML file similar to your quotes page.
+\f3\fs24 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\b\fs30 \cf2 Notes:
+\f3\b0\fs24 \cf0 \
+\pard\tqr\tx340\tx500\li500\fi-500\pardirnatural\partightenfactor0
+\ls4\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}If your YAML file is a list of publications (not a named list), the script works as-is.
+\f3\fs24 \cf0 \
+\ls4\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}If you want to add more fields (e.g., DOI, PDF link), you can extend the 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 pub_to_htm\kerning1\expnd16\expndtw80
+l\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  function.
+\f3\fs24 \cf0 \
+\ls4\ilvl0
+\f2\fs30 \cf2 {\listtext	\uc0\u8226 	}Make sure your image files are named exactly as 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 \{slug\}.jp\kerning1\expnd16\expndtw80
+g\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  and placed in the 
+\f3\fs28 \cf3 \kerning1\expnd16\expndtw80
+\uc0\u8206 \kerning1\expnd0\expndtw0 \uc0\u8288 images\kerning1\expnd16\expndtw80
+/\kerning1\expnd0\expndtw0 \uc0\u8288 
+\f2\fs30 \cf2  folder.
+\f3\fs24 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+
+\f2\fs30 \cf2 Let me know if you want to customize the style, add more metadata, or automate image resizing!\
+\
+}
