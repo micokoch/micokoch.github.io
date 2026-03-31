@@ -1,0 +1,118 @@
+---
+title: "Dissertation Timeline"
+date: "Last updated: `r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    theme: flatly
+    self_contained: true
+    toc: false
+knit: (function(inputFile, encoding) {
+    rmarkdown::render(inputFile, encoding = encoding,
+                      output_file = "docs/calendar.html") })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r milestones}
+zoom_link <- "https://umass-amherst.zoom.us/j/97299985791"
+
+# ===== EDIT MILESTONES HERE =====
+milestones <- data.frame(
+  date = as.Date(c(
+    "2026-03-31",
+    "2026-04-07",
+    "2026-04-07",
+    "2026-04-14",
+    "2026-04-28",
+    "2026-05-12",
+    "2026-05-26",
+    "2026-06-02"
+  )),
+  text = c(
+    "Timeline review with Brian",
+    "Álvaro delivers complete proposal presentation to Brian",
+    "Send proposed dates to committee for proposal defence",
+    "Álvaro sends chapter 1 to Brian",
+    "Álvaro sends chapter 2 to Brian",
+    "Álvaro sends chapter 3 to Brian",
+    "Send full proposal to committee",
+    "Dissertation proposal defence"
+  ),
+  stringsAsFactors = FALSE
+)
+# ================================
+
+cal_start <- as.Date("2026-03-30")  # first Monday shown
+cal_end   <- as.Date("2026-06-07")  # last Sunday shown
+
+today <- Sys.Date()
+```
+
+```{r countdown, results='asis'}
+future <- milestones[milestones$date >= today, ]
+
+if (nrow(future) > 0) {
+  next_m    <- future[1, ]
+  days_left <- as.numeric(next_m$date - today)
+  day_word  <- ifelse(days_left == 1, "day", "days")
+
+  if (days_left == 0) {
+    cat(sprintf("> **Today:** %s\n\n", next_m$text))
+  } else {
+    cat(sprintf("> **%d %s** until: %s\n\n",
+                days_left, day_word, next_m$text))
+  }
+} else {
+  cat("> **All milestones complete.**\n\n")
+}
+```
+
+```{r calendar, results='asis'}
+# Tuesday meetings (auto-generated)
+tuesdays <- seq.Date(from = as.Date("2026-04-07"), to = cal_end, by = "week")
+meetings <- data.frame(
+  date = tuesdays,
+  text = paste0("Meeting with Brian by Zoom ([link](", zoom_link, "))"),
+  type = "meeting",
+  stringsAsFactors = FALSE
+)
+
+all_events <- rbind(
+  data.frame(date = milestones$date, text = milestones$text,
+             type = "milestone", stringsAsFactors = FALSE),
+  meetings
+)
+all_events <- all_events[order(all_events$date), ]
+
+week_starts <- seq.Date(from = cal_start, to = cal_end - 6, by = "week")
+
+for (ws in as.list(week_starts)) {
+  ws <- as.Date(ws)
+  we <- ws + 6
+
+  week_events <- all_events[all_events$date >= ws & all_events$date <= we, ]
+
+  cat(sprintf("### %s \u2013 %s\n\n",
+              format(ws, "%B %d"), format(we, "%B %d")))
+
+  if (nrow(week_events) > 0) {
+    for (i in seq_len(nrow(week_events))) {
+      e        <- week_events[i, ]
+      day_lbl  <- format(e$date, "%A, %B %d")
+      if (e$type == "milestone") {
+        cat(sprintf("- **%s** \u2014 %s\n", day_lbl, e$text))
+      } else {
+        cat(sprintf("- *%s* \u2014 %s\n", day_lbl, e$text))
+      }
+    }
+  } else {
+    cat("- *(no scheduled events)*\n")
+  }
+  cat("\n")
+}
+```
+
+---
+*Days remaining updates each time you knit.*
