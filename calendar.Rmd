@@ -3,9 +3,10 @@ title: "Dissertation Timeline"
 date: "Last updated: `r format(Sys.Date(), '%B %d, %Y')`"
 output:
   html_document:
-    theme: flatly
+    theme: null
     self_contained: true
     toc: false
+    css: docs/css/styles.css
 knit: (function(inputFile, encoding) {
     rmarkdown::render(inputFile, encoding = encoding,
                       output_file = "docs/calendar.html") })
@@ -15,7 +16,7 @@ knit: (function(inputFile, encoding) {
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ```
 
-```{r milestones}
+```{r define-events}
 zoom_link <- "https://umass-amherst.zoom.us/j/97299985791"
 
 # ===== EDIT MILESTONES HERE =====
@@ -23,96 +24,159 @@ milestones <- data.frame(
   date = as.Date(c(
     "2026-03-31",
     "2026-04-07",
-    "2026-04-07",
+    "2026-04-09",
     "2026-04-14",
+    "2026-04-21",
     "2026-04-28",
-    "2026-05-12",
-    "2026-05-26",
-    "2026-06-02"
+    "2026-04-28",
+    "2026-05-05",
+    "2026-05-24"
   )),
   text = c(
     "Timeline review with Brian",
-    "Álvaro delivers complete proposal presentation to Brian",
+    "&Aacute;lvaro delivers complete proposal presentation to Brian",
     "Send proposed dates to committee for proposal defence",
-    "Álvaro sends chapter 1 to Brian",
-    "Álvaro sends chapter 2 to Brian",
-    "Álvaro sends chapter 3 to Brian",
+    "&Aacute;lvaro sends chapter 1 to Brian",
+    "&Aacute;lvaro sends chapter 2 to Brian",
+    "&Aacute;lvaro sends chapter 3 to Brian",
     "Send full proposal to committee",
-    "Dissertation proposal defence"
+    "Dissertation proposal defence",
+    "Testing how this works"
   ),
+  type = "milestone",
   stringsAsFactors = FALSE
 )
 # ================================
 
+# ===== ADD EXTRA ONE-OFF EVENTS HERE =====
+# Each row is one event. Add as many as you like.
+# Example:
+#   date = as.Date("2026-04-15"), text = "Some event", type = "other"
+extra_events <- data.frame(
+  date = as.Date(c(
+    "2026-04-15",
+    "2026-04-22"
+  )),
+  text = c(
+    "&Aacute;lvaro sends tentative dates",
+    "Committee feedback on dates"
+  ),
+  type = c(
+    "other",
+    "meeting"
+  ),
+  stringsAsFactors = FALSE
+)
+# ==========================================
+
 cal_start <- as.Date("2026-03-30")  # first Monday shown
-cal_end   <- as.Date("2026-06-07")  # last Sunday shown
+cal_end   <- as.Date("2026-05-31")  # last Sunday shown
 
-today <- Sys.Date()
-```
+# Time-aware current moment (ET)
+now_et    <- as.POSIXct(Sys.time(), tz = "America/New_York")
+today     <- as.Date(now_et)
+hour_et   <- as.numeric(format(now_et, "%H")) +
+             as.numeric(format(now_et, "%M")) / 60
+after_mtg <- hour_et >= 15   # past 3 pm ET => today's events are done
 
-```{r countdown, results='asis'}
-future <- milestones[milestones$date >= today, ]
-
-if (nrow(future) > 0) {
-  next_m    <- future[1, ]
-  days_left <- as.numeric(next_m$date - today)
-  day_word  <- ifelse(days_left == 1, "day", "days")
-
-  if (days_left == 0) {
-    cat(sprintf("> **Today:** %s\n\n", next_m$text))
-  } else {
-    cat(sprintf("> **%d %s** until: %s\n\n",
-                days_left, day_word, next_m$text))
-  }
-} else {
-  cat("> **All milestones complete.**\n\n")
-}
-```
-
-```{r calendar, results='asis'}
 # Tuesday meetings (auto-generated)
 tuesdays <- seq.Date(from = as.Date("2026-04-07"), to = cal_end, by = "week")
 meetings <- data.frame(
   date = tuesdays,
-  text = paste0("Meeting with Brian by Zoom ([link](", zoom_link, "))"),
+  text = sprintf(
+    'Meeting with Brian, 14:00&ndash;15:00 ET (<a href="%s">Zoom</a>)',
+    zoom_link
+  ),
   type = "meeting",
   stringsAsFactors = FALSE
 )
 
 all_events <- rbind(
-  data.frame(date = milestones$date, text = milestones$text,
-             type = "milestone", stringsAsFactors = FALSE),
-  meetings
+  milestones[, c("date", "text", "type")],
+  meetings,
+  extra_events
 )
-all_events <- all_events[order(all_events$date), ]
 
+# Next upcoming milestone for countdown + highlight (meetings excluded)
+upcoming_ms <- milestones[
+  milestones$date > today | (milestones$date == today & !after_mtg), ]
+next_evt <- if (nrow(upcoming_ms) > 0) upcoming_ms[1, ] else NULL
+```
+
+```{r countdown, results='asis'}
+if (!is.null(next_evt)) {
+  days_left <- as.numeric(next_evt$date - today)
+  label     <- if (days_left == 0) "Today" else
+               if (days_left == 1) "1 day"  else
+               paste0(days_left, " days")
+  cat(sprintf(
+    '<div class="countdown-box"><strong>%s until:</strong> %s</div>\n\n',
+    label, next_evt$text
+  ))
+} else {
+  cat('<div class="countdown-box"><strong>All milestones complete!</strong></div>\n\n')
+}
+```
+
+```{r calendar, results='asis'}
 week_starts <- seq.Date(from = cal_start, to = cal_end - 6, by = "week")
 
 for (ws in as.list(week_starts)) {
   ws <- as.Date(ws)
   we <- ws + 6
 
+  is_past    <- we < today | (we == today & after_mtg)
+  is_current <- (ws <= today) & (today <= we)
+
   week_events <- all_events[all_events$date >= ws & all_events$date <= we, ]
+  if (nrow(week_events) == 0) next
 
-  cat(sprintf("### %s \u2013 %s\n\n",
-              format(ws, "%B %d"), format(we, "%B %d")))
+  # Sort by date, then meetings first within each day
+  week_events$sort_type <- ifelse(week_events$type == "meeting", 0, 1)
+  week_events <- week_events[order(week_events$date, week_events$sort_type), ]
 
-  if (nrow(week_events) > 0) {
-    for (i in seq_len(nrow(week_events))) {
-      e        <- week_events[i, ]
-      day_lbl  <- format(e$date, "%A, %B %d")
-      if (e$type == "milestone") {
-        cat(sprintf("- **%s** \u2014 %s\n", day_lbl, e$text))
-      } else {
-        cat(sprintf("- *%s* \u2014 %s\n", day_lbl, e$text))
-      }
+  block_class <- if (is_past)    "week-block past-week"        else
+                 if (is_current) "week-block current-week-block" else
+                 "week-block"
+
+  cat(sprintf('<div class="%s">\n', block_class))
+  cat(sprintf(
+    '<div class="week-header">%s &ndash; %s</div>\n',
+    format(ws, "%B %d"), format(we, "%B %d")
+  ))
+
+  # Group events by day
+  for (d in as.list(sort(unique(week_events$date)))) {
+    d          <- as.Date(d)
+    day_events <- week_events[week_events$date == d, ]
+
+    cat(sprintf(
+      '<div class="day-block"><div class="day-header">%s</div>\n',
+      format(d, "%A, %B %d")
+    ))
+    cat('<ul class="event-list">\n')
+
+    for (i in seq_len(nrow(day_events))) {
+      e <- day_events[i, ]
+
+      is_next <- !is.null(next_evt) &&
+                 e$date == next_evt$date &&
+                 e$text == next_evt$text
+
+      item_class <- if (is_next)             "next-event"    else
+                    if (e$type == "meeting") "meeting-item"  else
+                    "other-item"
+
+      cat(sprintf('<li class="%s">%s</li>\n', item_class, e$text))
     }
-  } else {
-    cat("- *(no scheduled events)*\n")
+
+    cat('</ul></div>\n')
   }
-  cat("\n")
+
+  cat('</div>\n\n')
 }
 ```
 
 ---
-*Days remaining updates each time you knit.*
+
+<!-- *Days remaining updates each time you knit.* -->
