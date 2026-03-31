@@ -55,11 +55,11 @@ milestones <- data.frame(
 extra_events <- data.frame(
   date = as.Date(c(
     "2026-04-15",
-    "2026-04-22"
+    "2026-03-20"
   )),
   text = c(
     "&Aacute;lvaro sends tentative dates",
-    "Committee feedback on dates"
+    'Meeting with Brian, 14:00&ndash;15:00 ET (<a href="%s">Zoom</a>)'
   ),
   type = c(
     "other",
@@ -69,7 +69,7 @@ extra_events <- data.frame(
 )
 # ==========================================
 
-cal_start <- as.Date("2026-03-30")  # first Monday shown
+cal_start <- as.Date("2026-03-16")  # first Monday shown
 cal_end   <- as.Date("2026-05-31")  # last Sunday shown
 
 # Time-aware current moment (ET)
