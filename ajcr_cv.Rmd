@@ -1,0 +1,90 @@
+---
+output: 
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=0.75in
+header-includes:
+  - \usepackage{hyperref}
+  - \usepackage{enumitem}
+  - \usepackage{titlesec}
+  - \usepackage{xcolor}
+  - \definecolor{primary}{HTML}{2E5984}
+  - \titleformat{\section}{\large\bfseries\color{primary}}{}{0pt}{}[\titlerule]
+  - \titlespacing{\section}{0pt}{12pt}{8pt}
+  - \setlist[itemize]{leftmargin=1.5em, nosep, topsep=2pt}
+  - \pagenumbering{gobble}
+---
+
+\begin{center}
+  \textbf{\huge ALVARO J. CASTRO RIVADENEIRA, M.D.} \\
+  \vspace{2pt}
+  \textcolor{gray}{Epidemiology Doctoral Candidate | Social Determinants of Health \& Gambling} \\
+  \vspace{4pt}
+  Amherst, MA $\cdot$ +1 (413) 273 4912 $\cdot$ \href{mailto:acastrorivad@umass.edu}{acastrorivad@umass.edu} \\
+  \href{https://micokoch.github.io/}{Website: micokoch.github.io} $\cdot$ \href{https://github.com/micokoch}{GitHub: micokoch} $\cdot$ Spanish \& English (Native)
+\end{center}
+
+\section{Professional Summary}
+Physician and epidemiology doctoral candidate with extensive experience in academic instruction, clinical care, and quantitative research. Specialized in the social determinants of health, problem gambling, and infectious disease forecasting, with a proven track record of translating complex modeling into policy-relevant insights. Expert in large-scale science communication reaching up to 2 million individuals across diverse stakeholder audiences.
+
+\section{Education}
+\textbf{Ph.D. in Epidemiology} | \textit{University of Massachusetts, Amherst} \hfill 2019 -- Present
+
+* \textbf{Dissertation:} \textit{Employment, inequality, gambling, and health in Massachusetts.}
+* Recipient of the \textbf{Diane J. Mundt Memorial Scholarship} (2023).
+* \textbf{Focus:} Modeling gambling and social determinants of health using weighted survey data and economic indices.
+
+\textbf{Doctor of Medicine (M.D.)} | \textit{Universidad Internacional del Ecuador} \hfill 2004 -- 2009
+
+* Graduated with Honors; elected Class President for four consecutive years.
+
+\textbf{B.Sc. in Biochemistry} | \textit{McGill University, Montreal} \hfill 1999 -- 2004
+
+* Minor in Philosophy; Awarded International Scholarship (2001--2004).
+
+\section{Research Experience}
+\textbf{Infectious Disease Forecasting Researcher} | \textit{Reich Lab / Hubverse} \hfill 2020 -- Present
+
+* Manage digital outreach and media engagement for the \textbf{COVID-19 Forecast Hub} and the \textbf{Hubverse} ecosystem.
+* Coordinate collaborative modeling efforts and public engagement for multi-model public health forecasts.
+
+\textbf{Epidemiology Gambling Researcher} | \textit{UMass Amherst (SEIGMA) \& Independent} \hfill 2019 -- 2025
+
+* Authored state-level research reports informing the \textbf{Massachusetts Gaming Commission} and the \textbf{Connecticut Department of Mental Health and Addiction Services}.
+* Provided quantitative evidence utilized to shape policies on sports wagering advertising and problem gambling mitigation.
+
+\section{Teaching Experience}
+\textbf{Epidemiology \& Biostatistics Instruction} | \textit{UMass Amherst} \hfill 2019 -- 2026
+
+* Tutored and assisted in the teaching of seven undergraduate and graduate level courses, including EPI 700 and PUBHLTH 223.
+
+\textbf{Biology \& Chemistry Instructor} | \textit{Springfield College, MA} \hfill 2018 -- 2019
+
+* Taught Microbiology, Virology \& Immunology, Medical Microbiology, and Biochemistry.
+
+\section{Clinical Experience}
+\textbf{Rural Physician} | \textit{Hospital Básico Rafael Ruiz de Pujilí, Ecuador} \hfill 2009 -- 2010
+
+* Managed primary and emergency care for 50--120 patients daily and supervised a staff serving 60,000 residents.
+* Spearheaded an international initiative to procure and donate the clinic's first EKG machine.
+
+\textbf{General Physician} | \textit{Orphanage Clinical Care, Kathmandu, Nepal} \hfill 2014
+
+* Provided pediatric medical care in a low-resource setting with a focus on infectious diseases.
+
+\section{Technical Proficiency \& Outreach}
+
+* \textbf{Statistical Programming:} \textbf{R} (Native/Expert); \textbf{SAS} (Advanced Proficiency); \textbf{Python} (Working Knowledge).
+* \textbf{Science Communication:} Manage digital platforms with up to \textbf{2 million} followers, catering to policymakers, researchers, and the general public.
+* \textbf{Languages:} Native fluency in Spanish and English; Intermediate French.
+
+\section{Publications}
+
+* \textbf{Consortium of Infectious Disease Modeling Hubs}, et al. (2025). Coordinating collaborative infectious disease modeling projects with the hubverse. \textit{medRxiv}.
+* Shandross L, ... \textbf{Castro Rivadeneira AJ}, et al. (2026). Multi-Model Ensembles in Infectious Disease and Public Health. \textit{Statistics in Medicine}.
+* Melnik M, ... \textbf{Castro Rivadeneira AJ}. (2025). Diversity in Sports Wagering and Recommendations for Future Practices in the Massachusetts Industry. \textit{Massachusetts Gaming Commission}.
+* \textbf{SEIGMA Research Team}. (2024). Social and Economic Impacts of Casino Introduction to Massachusetts. \textit{University of Massachusetts Amherst}.
+* Lopez VK, ... \textbf{Castro Rivadeneira AJ}, et al. (2024). Challenges of COVID-19 Case Forecasting in the US, 2020-2021. \textit{PLOS Computational Biology}.
+* \textbf{Gemini Research}. (2024). Impacts of legalized gambling in Connecticut. \textit{Connecticut DMHAS}.
+* Cramer EY, ... \textbf{Castro Rivadeneira AJ}, et al. (2022). The United States COVID-19 Forecast Hub dataset. \textit{Scientific Data}.
+* Cramer EY, ... \textbf{Castro Rivadeneira AJ}, et al. (2022). Evaluation of individual and ensemble probabilistic forecasts of COVID-19 mortality in the US. \textit{PNAS}.
